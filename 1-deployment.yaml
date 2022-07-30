@@ -39,3 +39,15 @@ spec:
           ports:
             - containerPort: 4567
           imagePullPolicy: IfNotPresent
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 4567
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 4567
+            initialDelaySeconds: 3
+            periodSeconds: 3
