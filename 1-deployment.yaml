@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp
+  namespace: first
+spec:
+  type: ClusterIP
+  ports:
+    - port: 7777
+      targetPort: 4567
+  selector:
+    app: myapp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+  namespace: first
+  labels:
+    app: test
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - image: daslapovsky/otus:0.0.1
+          name: supercontainer
+          ports:
+            - containerPort: 4567
+          imagePullPolicy: IfNotPresent
