@@ -34,7 +34,7 @@ spec:
         app: myapp
     spec:
       containers:
-        - image: daslapovsky/otus:0.0.1
+        - image: daslapovsky/otus:0.0.2
           name: supercontainer
           ports:
             - containerPort: 4567
